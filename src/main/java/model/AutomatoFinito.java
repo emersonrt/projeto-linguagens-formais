@@ -6,27 +6,27 @@ import java.util.List;
 
 public class AutomatoFinito {
 
-    private List<String> estadosNaoTerminais;
-    private List<String> estadosTerminais;
+    private List<String> estados;
+    private List<String> simbolos;
     private List<RegraTransicaoAF> regrasTransicao;
-    private String simboloInicial;
+    private String estadoInicial;
     private List<String> estadosFinais;
     private AutomatoFinitoTipo tipo;
 
-    public List<String> getEstadosNaoTerminais() {
-        return estadosNaoTerminais;
+    public List<String> getEstados() {
+        return estados;
     }
 
-    public void setEstadosNaoTerminais(List<String> estadosNaoTerminais) {
-        this.estadosNaoTerminais = estadosNaoTerminais;
+    public void setEstados(List<String> estados) {
+        this.estados = estados;
     }
 
-    public List<String> getEstadosTerminais() {
-        return estadosTerminais;
+    public List<String> getSimbolos() {
+        return simbolos;
     }
 
-    public void setEstadosTerminais(List<String> estadosTerminais) {
-        this.estadosTerminais = estadosTerminais;
+    public void setSimbolos(List<String> simbolos) {
+        this.simbolos = simbolos;
     }
 
     public List<RegraTransicaoAF> getRegrasTransicao() {
@@ -37,12 +37,12 @@ public class AutomatoFinito {
         this.regrasTransicao = regrasTransicao;
     }
 
-    public String getSimboloInicial() {
-        return simboloInicial;
+    public String getEstadoInicial() {
+        return estadoInicial;
     }
 
-    public void setSimboloInicial(String simboloInicial) {
-        this.simboloInicial = simboloInicial;
+    public void setEstadoInicial(String estadoInicial) {
+        this.estadoInicial = estadoInicial;
     }
 
     public List<String> getEstadosFinais() {
@@ -63,11 +63,11 @@ public class AutomatoFinito {
 
     @Override
     public String toString() {
-        return "M = (" + TextUtils.arrayToStringLF(estadosNaoTerminais) +
-                ", " + TextUtils.arrayToStringLF(estadosTerminais) +
-                ", " + regrasTransicao.toString() +
-                ", " + simboloInicial +
-                ", " + TextUtils.arrayToStringLF(estadosFinais) +
-                ')';
+        return "M = (" + TextUtils.arrayToStringLF(this.estados) +
+                ", " + TextUtils.arrayToStringLF(this.simbolos) +
+                ", δ" +
+                ", " + this.estadoInicial +
+                ", " + TextUtils.arrayToStringLF(this.estadosFinais) +
+                ")\n" + this.regrasTransicao.toString();
     }
 }

@@ -10,9 +10,10 @@ public class RegraTransicaoAF {
     private String leitura;
     private List<String> vaiPara;
 
-
-    public void setRegraTransicaoCompleta(String regra) {
-        //criar lógica aqui
+    public RegraTransicaoAF(String estado, String leitura, List<String> vaiPara) {
+        this.estado = estado;
+        this.leitura = leitura;
+        this.vaiPara = vaiPara;
     }
 
     public String getEstado() {
@@ -37,6 +38,10 @@ public class RegraTransicaoAF {
 
     public void setVaiPara(List<String> vaiPara) {
         this.vaiPara = vaiPara;
+    }
+
+    public Boolean getEhNaoDeterministico() {
+        return this.vaiPara.size() > 1;
     }
 
     @Override
