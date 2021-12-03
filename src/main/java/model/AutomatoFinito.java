@@ -6,27 +6,26 @@ import java.util.List;
 
 public class AutomatoFinito {
 
-    private List<Character> estadosNaoTerminais;
-    private List<Character> estadosTerminais;
+    private List<String> estadosNaoTerminais;
+    private List<String> estadosTerminais;
     private List<RegraTransicaoAF> regrasTransicao;
-    private Character simboloInicial;
-    private List<Character> estadosFinais;
+    private String simboloInicial;
+    private List<String> estadosFinais;
     private AutomatoFinitoTipo tipo;
 
-
-    public List<Character> getEstadosNaoTerminais() {
+    public List<String> getEstadosNaoTerminais() {
         return estadosNaoTerminais;
     }
 
-    public void setEstadosNaoTerminais(List<Character> estadosNaoTerminais) {
+    public void setEstadosNaoTerminais(List<String> estadosNaoTerminais) {
         this.estadosNaoTerminais = estadosNaoTerminais;
     }
 
-    public List<Character> getEstadosTerminais() {
+    public List<String> getEstadosTerminais() {
         return estadosTerminais;
     }
 
-    public void setEstadosTerminais(List<Character> estadosTerminais) {
+    public void setEstadosTerminais(List<String> estadosTerminais) {
         this.estadosTerminais = estadosTerminais;
     }
 
@@ -38,19 +37,19 @@ public class AutomatoFinito {
         this.regrasTransicao = regrasTransicao;
     }
 
-    public Character getSimboloInicial() {
+    public String getSimboloInicial() {
         return simboloInicial;
     }
 
-    public void setSimboloInicial(Character simboloInicial) {
+    public void setSimboloInicial(String simboloInicial) {
         this.simboloInicial = simboloInicial;
     }
 
-    public List<Character> getEstadosFinais() {
+    public List<String> getEstadosFinais() {
         return estadosFinais;
     }
 
-    public void setEstadosFinais(List<Character> estadosFinais) {
+    public void setEstadosFinais(List<String> estadosFinais) {
         this.estadosFinais = estadosFinais;
     }
 
@@ -65,7 +64,7 @@ public class AutomatoFinito {
     @Override
     public String toString() {
         return "M = (" + TextUtils.arrayToStringLF(estadosNaoTerminais) +
-                ", {" + TextUtils.arrayToStringLF(estadosTerminais) +
+                ", " + TextUtils.arrayToStringLF(estadosTerminais) +
                 ", " + regrasTransicao.toString() +
                 ", " + simboloInicial +
                 ", " + TextUtils.arrayToStringLF(estadosFinais) +
