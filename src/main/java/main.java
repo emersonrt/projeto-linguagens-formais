@@ -1,27 +1,53 @@
 import model.AutomatoFinito;
 import service.AutomatoDigestService;
+import service.funcoesAF.ComandoEnum;
+import service.funcoesAF.FuncaoAF;
+import service.funcoesAF.RemoverTransicoesVaziasService;
 import utils.TextUtils;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Scanner;
 
 public class main {
-
-    //    M = (Q, Σ, δ, q0, F) //q0 estado inicial
-    //    Q = {S, A, B, X} //conjunto de estados
-    //    Σ = {a, b} //alfabeto
-    //    E = q0 // estado inicial
-    //    F = {X} // conjunto de estados finais/de aceitação
-    //    δ(S,a) = {A}
-    //    δ(S,b) = {B}
-    //    δ(A,a) = {A}
-    //    δ(A,b) = {B}
-    //    δ(B,b) = {B, X}
 
     public static void main(String[] args) {
 
         AutomatoDigestService service = new AutomatoDigestService();
+        Scanner scan = new Scanner(System.in);
 
+        List<String> texto = cargaInicial();
+        texto = TextUtils.removeWhiteSpacesArray(texto);
+
+        AutomatoFinito af = service.lerAutomatoFinito(texto);
+
+        Boolean execucao = true;
+        while (execucao) {
+            System.out.println("\n\n-------------------- Linguagens Formais - Menu -------------------------------------------");
+            System.out.println("0 - Encerrar execução");
+            System.out.println("1 - Exibir AF");
+            System.out.println("2 - Remover transições vazias");
+            System.out.println("3 - Determinizar AF");
+            System.out.println("4 - Minimizar AF");
+            Integer comando = scan.nextInt();
+
+            execucao = executarComando(comando, af);
+        }
+
+        scan.close();
+    }
+
+    private static Boolean executarComando(Integer comandoCodigo, AutomatoFinito af) {
+        List<ComandoEnum> comandoList = Arrays.asList(ComandoEnum.values());
+        ComandoEnum comando = comandoList.stream()
+                .filter(comandoEnum -> comandoEnum.getCodigo().equals(comandoCodigo))
+                .findFirst()
+                .orElse(ComandoEnum.ENCERRAR);
+        return comando.getFuncao().executar(af);
+    }
+
+    private static List<String> cargaInicial() {
         List<String> texto = new ArrayList<>();
         texto.add("M = (Q, Σ, δ, E, F)");
         texto.add("Q = {S,A,B,X}");
@@ -33,16 +59,7 @@ public class main {
         texto.add("δ(A,a) = {A}");
         texto.add("δ(A,b) = {B}");
         texto.add("δ(B,b) = {B, X}");
-
-        texto = TextUtils.removeWhiteSpacesArray(texto);
-
-        AutomatoFinito af = service.lerAutomatoFinito(texto);
-
-        System.out.println("\n\n-------------------- Linguagens Formais -------------------------------------------");
-        System.out.println(af);
-        System.out.println(af.getTipo());
-        System.out.println("-----------------------------------------------------------------------------------\n\n");
-
+        return texto;
     }
 
 }
