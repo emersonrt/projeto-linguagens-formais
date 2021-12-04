@@ -1,6 +1,7 @@
-package service.funcoesAF;
+package enums;
 
 import model.AutomatoFinito;
+import service.funcoes.*;
 
 public enum ComandoEnum {
 

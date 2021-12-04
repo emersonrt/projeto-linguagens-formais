@@ -1,4 +1,4 @@
-package service.funcoesAF;
+package service.funcoes;
 
 import model.AutomatoFinito;
 
@@ -9,7 +9,7 @@ public class ExibirService implements FuncaoAF {
         System.out.println("\n---------------------------------- Exibindo AF ------------------------------------");
         System.out.println(af);
         System.out.println("Tipo: " + af.getTipo());
-        System.out.println("-----------------------------------------------------------------------------------\n");
+        System.out.println("-----------------------------------------------------------------------------------");
         return true;
     }
 

@@ -41,7 +41,7 @@ public class RegraTransicaoAF {
     }
 
     public Boolean getEhNaoDeterministico() {
-        return this.vaiPara.size() > 1;
+        return this.vaiPara.size() > 1 || leitura.equals("ε");
     }
 
     @Override

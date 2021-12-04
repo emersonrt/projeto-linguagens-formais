@@ -1,8 +1,8 @@
-package service.funcoesAF;
+package service.funcoes;
 
 import model.AutomatoFinito;
 
-public class DeterminizarService implements FuncaoAF{
+public class MinimizarService implements FuncaoAF{
 
     @Override
     public Boolean executar(AutomatoFinito af) {

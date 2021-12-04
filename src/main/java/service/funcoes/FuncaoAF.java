@@ -1,4 +1,4 @@
-package service.funcoesAF;
+package service.funcoes;
 
 import model.AutomatoFinito;
 
