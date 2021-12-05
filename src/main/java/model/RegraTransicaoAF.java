@@ -46,6 +46,6 @@ public class RegraTransicaoAF {
 
     @Override
     public String toString() {
-        return "δ(" + estado + ", " + leitura + ") = " + TextUtils.arrayToStringLF(vaiPara);
+        return "\nδ(" + estado + ", " + leitura + ") = " + TextUtils.arrayToStringLF(vaiPara);
     }
 }
