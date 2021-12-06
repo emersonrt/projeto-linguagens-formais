@@ -54,4 +54,63 @@ public class main {
         return comando.getFuncao().executar(af);
     }
 
+    private static List<String> cargaInicial() {
+        List<String> texto = new ArrayList<>();
+//        texto.add("M = (Q, Σ, δ, E, F)");
+//        texto.add("Q = {S,A,B,X}");
+//        texto.add("Σ = {a, b}");
+//        texto.add("E = q0");
+//        texto.add("F = {X}");
+//        texto.add("δ(S,a) = {A}");
+//        texto.add("δ(S,b) = {B}");
+//        texto.add("δ(A,a) = {A}");
+//        texto.add("δ(A,b) = {B}");
+//        texto.add("δ(B,b) = {B, X}");
+        
+        texto.add("M = (Q, Σ, δ, E, F)");
+        texto.add("Q = {q0,q1,q2,q3,q4}");
+        texto.add("Σ = {a,b}");
+        texto.add("E = q0");
+        texto.add("F = {q2}");
+        texto.add("δ(q0,a) = {q1}");
+        texto.add("δ(q0,b) = {q3}");
+        texto.add("δ(q1,a) = {q1}");
+        texto.add("δ(q3,a) = {q4}");
+        texto.add("δ(q1,b) = {q2}");
+
+//        texto.add("M = (Q, Σ, δ, E, F)");
+//        texto.add("Q = {q0,q1,q2}");
+//        texto.add("Σ = {0,1,2}");
+//        texto.add("E = q0");
+//        texto.add("F = {q2}");
+//        texto.add("δ(q0,0) = {q0}");
+//        texto.add("δ(q0,ε) = {q1}");
+//        texto.add("δ(q1,1) = {q1}");
+//        texto.add("δ(q1,ε) = {q2}");
+//        texto.add("δ(q2,2) = {q2}");
+
+//        texto.add("M = (Q, Σ, δ, E, F)");
+//        texto.add("Q = {q0,q1}");
+//        texto.add("Σ = {a,b}");
+//        texto.add("E = q0");
+//        texto.add("F = {q1}");
+//        texto.add("δ(q0,a) = {q0}");
+//        texto.add("δ(q0,ε) = {q1}");
+//        texto.add("δ(q1,b) = {q1}");
+
+//        texto.add("M = (Q, Σ, δ, E, F)");
+//        texto.add("Q = {q1,q2,q3,q4}");
+//        texto.add("Σ = {a,b,c}");
+//        texto.add("E = q1");
+//        texto.add("F = {q1,q2,q3,q4}");
+//        texto.add("δ(q1,a) = {q1}");
+//        texto.add("δ(q1,ε) = {q2}");
+//        texto.add("δ(q2,b) = {q2}");
+//        texto.add("δ(q2,ε) = {q3}");
+//        texto.add("δ(q3,c) = {q3}");
+//        texto.add("δ(q3,ε) = {q4}");
+//        texto.add("δ(q4,a) = {q4}");
+        return texto;
+    }
+
 }
