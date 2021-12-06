@@ -41,13 +41,13 @@ public class MinimizarService implements FuncaoAF{
         
         af = atualizarAF(listaAutomatosMinimizados, af);
         //passo 3 - encontrar sentenças equivalentes
-        
-        
+        listaAutomatosMinimizados = gerarListaAutomato(af);
+        listaAutomatosMinimizados = encontrarSentencaEquivalente(listaAutomatosMinimizados, af);
         af = atualizarAF(listaAutomatosMinimizados, af);
         
 
-//        System.out.println("\n----------------- AF após remoção de estados vazios -----------------");
-//        System.out.println(af);
+        System.out.println("\n----------------- AF após minimização -----------------");
+        System.out.println(af);
 
         return true;
     }
@@ -155,4 +155,91 @@ public class MinimizarService implements FuncaoAF{
         return listaAutomatosMinimizadosNova;
     }
 
+    private List<AutomatoFinitoMinimizador> encontrarSentencaEquivalente(List<AutomatoFinitoMinimizador> listaAutomatosMinimizados, AutomatoFinito af) {
+
+        for(Integer auxiliar = 0; auxiliar < listaAutomatosMinimizados.size(); auxiliar++){
+            
+            List<RegraTransicaoAF> regrasNovas = new ArrayList();
+            List<Integer> indexes = new ArrayList();
+            
+            for(Integer auxiliar2 = 0; auxiliar2 < listaAutomatosMinimizados.size(); auxiliar2++){
+            
+                if(
+                listaAutomatosMinimizados.get(auxiliar).getTransicao().getLeitura() == listaAutomatosMinimizados.get(auxiliar2).getTransicao().getLeitura() &&
+                listaAutomatosMinimizados.get(auxiliar).getTransicao().getVaiPara()== listaAutomatosMinimizados.get(auxiliar2).getTransicao().getVaiPara() &&
+                auxiliar != auxiliar2){                    
+                
+                    regrasNovas.add(listaAutomatosMinimizados.get(auxiliar2).getTransicao());
+                    indexes.add(auxiliar2);
+                }
+            }
+            if (regrasNovas.size() > 0 ){
+                af = removerEstadosFinais(af, regrasNovas, indexes, listaAutomatosMinimizados);
+                af= removerEstados(af, regrasNovas, indexes, listaAutomatosMinimizados);
+                af = removerRegrasTransicao(af, regrasNovas, indexes, listaAutomatosMinimizados);
+            }
+        }
+        
+        return listaAutomatosMinimizados;
+    }
+
+    private AutomatoFinito removerEstadosFinais(AutomatoFinito af, List<RegraTransicaoAF> regrasNovas, List<Integer> indexes, List<AutomatoFinitoMinimizador> listaAutomatosMinimizados) {
+        
+        List<AutomatoFinitoMinimizador> listaAutomatosMinimizadosNova = new ArrayList();
+        
+        af.getRegrasTransicao().forEach(sentenca -> {
+               
+            sentenca.getVaiPara().forEach(vaiPara ->{
+                
+                listaAutomatosMinimizados.forEach(lista -> {
+                        
+                    if (vaiPara.contains(lista.getTransicao().getEstado())){
+                        lista.setContador(lista.getContador()+1);
+                    }
+                });
+            });
+        });
+        
+        return af;
+    }
+
+    private AutomatoFinito removerEstados(AutomatoFinito af, List<RegraTransicaoAF> regrasNovas, List<Integer> indexes, List<AutomatoFinitoMinimizador> listaAutomatosMinimizados) {
+        
+        List<AutomatoFinitoMinimizador> listaAutomatosMinimizadosNova = new ArrayList();
+        
+        af.getRegrasTransicao().forEach(sentenca -> {
+               
+            sentenca.getVaiPara().forEach(vaiPara ->{
+                
+                listaAutomatosMinimizados.forEach(lista -> {
+                        
+                    if (vaiPara.contains(lista.getTransicao().getEstado())){
+                        lista.setContador(lista.getContador()+1);
+                    }
+                });
+            });
+        });
+        
+        return af;
+    }
+
+    private AutomatoFinito removerRegrasTransicao(AutomatoFinito af, List<RegraTransicaoAF> regrasNovas, List<Integer> indexes, List<AutomatoFinitoMinimizador> listaAutomatosMinimizados) {
+        
+        List<AutomatoFinitoMinimizador> listaAutomatosMinimizadosNova = new ArrayList();
+        
+        af.getRegrasTransicao().forEach(sentenca -> {
+               
+            sentenca.getVaiPara().forEach(vaiPara ->{
+                
+                listaAutomatosMinimizados.forEach(lista -> {
+                        
+                    if (vaiPara.contains(lista.getTransicao().getEstado())){
+                        lista.setContador(lista.getContador()+1);
+                    }
+                });
+            });
+        });
+        
+        return af;
+    }
 }
