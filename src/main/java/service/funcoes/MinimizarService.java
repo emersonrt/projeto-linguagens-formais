@@ -13,19 +13,14 @@ public class MinimizarService implements FuncaoAF{
 
     @Override
     public Boolean executar(AutomatoFinito af) {
-        
-        
-//        System.out.println(af);
 
-        System.out.println(af.getTipo());
-        
-        if (af.getTipo() == AutomatoFinitoTipo.NAO_DETERMINISTICO)
-        {
+        if (af.getTipo() == AutomatoFinitoTipo.NAO_DETERMINISTICO) {
             System.out.println("\nPrograma Não-Determinístico, impossível minimizar");
             return true;
         }
         
-        System.out.println("----------------- AF antes da remoção de Minimizar -----------------");
+        System.out.println("\n----------------- AF antes de Minimizar -----------------");
+        System.out.println(af);
 
         List<AutomatoFinitoMinimizador> listaAutomatosMinimizados = new ArrayList();
 
@@ -40,13 +35,14 @@ public class MinimizarService implements FuncaoAF{
         listaAutomatosMinimizados = encontrarSentencaMorta(listaAutomatosMinimizados, af);
         
         af = atualizarAF(listaAutomatosMinimizados, af);
+
         //passo 3 - encontrar sentenças equivalentes
         listaAutomatosMinimizados = gerarListaAutomato(af);
         listaAutomatosMinimizados = encontrarSentencaEquivalente(listaAutomatosMinimizados, af);
-        af = atualizarAF(listaAutomatosMinimizados, af);
-        
 
-        System.out.println("\n----------------- AF após minimização -----------------");
+        af = atualizarAF(listaAutomatosMinimizados, af);
+
+        System.out.println("\n----------------- AF após Minimização -----------------");
         System.out.println(af);
 
         return true;
