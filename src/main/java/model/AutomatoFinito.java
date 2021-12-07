@@ -7,7 +7,7 @@ import java.util.List;
 public class AutomatoFinito {
 
     private List<String> estados;
-    private List<String> simbolos;
+    private List<String> simbolos; //ou alfabeto
     private List<RegraTransicaoAF> regrasTransicao;
     private String estadoInicial;
     private List<String> estadosFinais;
