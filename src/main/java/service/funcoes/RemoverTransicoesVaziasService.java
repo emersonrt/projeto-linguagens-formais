@@ -37,7 +37,7 @@ public class RemoverTransicoesVaziasService implements FuncaoAF {
         //passo 3 - remover transições vazias
         novasRegras = removerTransicoesVazias(novasRegras);
 
-        //passo 4 - adicionar transições de opção arbitrária (regra do nosso sistema)
+        //passo 4 - adicionar transições para os estados do fechamento
         novasRegras = atualizarTransicoes(novasRegras);
         novasRegras = resolveExcessaoSimbolosRepetidos(novasRegras);
         af.setRegrasTransicao(novasRegras);
