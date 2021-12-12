@@ -169,7 +169,7 @@ public class MinimizarService implements FuncaoAF{
                     indexes.add(auxiliar2);
                 }
             }
-            if (regrasNovas.size() > 0 ){
+            if (regrasNovas.size() > 1 ){
                 af = removerEstadosFinais(af, regrasNovas, indexes, listaAutomatosMinimizados);
                 af= removerEstados(af, regrasNovas, indexes, listaAutomatosMinimizados);
                 af = removerRegrasTransicao(af, regrasNovas, indexes, listaAutomatosMinimizados);
@@ -179,43 +179,43 @@ public class MinimizarService implements FuncaoAF{
         return listaAutomatosMinimizados;
     }
 
-    private AutomatoFinito removerEstadosFinais(AutomatoFinito af, List<RegraTransicaoAF> regrasNovas, List<Integer> indexes, List<AutomatoFinitoMinimizador> listaAutomatosMinimizados) {
-        
-        List<AutomatoFinitoMinimizador> listaAutomatosMinimizadosNova = new ArrayList();
-        
-        af.getRegrasTransicao().forEach(sentenca -> {
-               
-            sentenca.getVaiPara().forEach(vaiPara ->{
+    private AutomatoFinito removerEstadosFinais(AutomatoFinito af, List<RegraTransicaoAF> regraRemocoes, List<Integer> indexes, List<AutomatoFinitoMinimizador> listaAutomatosMinimizados) {
+        List<String> regrasAF = new ArrayList();
                 
-                listaAutomatosMinimizados.forEach(lista -> {
-                        
-                    if (vaiPara.contains(lista.getTransicao().getEstado())){
-                        lista.setContador(lista.getContador()+1);
-                    }
-                });
+        af.getEstadosFinais().forEach(regraAntiga -> {
+        
+            regraRemocoes.forEach(regraRemocao -> {
+                if (!regraAntiga.equals(regraRemocao)){
+                    regrasAF.add(regraAntiga);
+                }
             });
         });
         
+        if (regrasAF.size() > 0){
+            regrasAF.add(regraRemocoes.get(0).getEstado());
+
+            af.setEstadosFinais(regrasAF.stream().distinct().collect(Collectors.toList()));
+        }
         return af;
     }
 
-    private AutomatoFinito removerEstados(AutomatoFinito af, List<RegraTransicaoAF> regrasNovas, List<Integer> indexes, List<AutomatoFinitoMinimizador> listaAutomatosMinimizados) {
+    private AutomatoFinito removerEstados(AutomatoFinito af, List<RegraTransicaoAF> regraRemocoes, List<Integer> indexes, List<AutomatoFinitoMinimizador> listaAutomatosMinimizados) {
         
-        List<AutomatoFinitoMinimizador> listaAutomatosMinimizadosNova = new ArrayList();
+        List<String> regrasAF = new ArrayList();
+        af.getEstadosFinais().forEach(regraAntiga -> {
         
-        af.getRegrasTransicao().forEach(sentenca -> {
-               
-            sentenca.getVaiPara().forEach(vaiPara ->{
-                
-                listaAutomatosMinimizados.forEach(lista -> {
-                        
-                    if (vaiPara.contains(lista.getTransicao().getEstado())){
-                        lista.setContador(lista.getContador()+1);
-                    }
-                });
+            regraRemocoes.forEach(regraRemocao -> {
+                if (!regraAntiga.equals(regraRemocao)){
+                    regrasAF.add(regraAntiga);
+                }
             });
         });
         
+        if (regrasAF.size() > 0){
+        regrasAF.add(regraRemocoes.get(0).getEstado());
+        
+        af.setEstados(regrasAF.stream().distinct().collect(Collectors.toList()));
+        }
         return af;
     }
 

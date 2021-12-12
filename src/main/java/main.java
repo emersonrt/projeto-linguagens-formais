@@ -16,7 +16,7 @@ public class main {
         AutomatoDigestService service = new AutomatoDigestService();
         Scanner scan = new Scanner(System.in);
 
-        File f = new File("/home/emerson/Documents/exemplos/exemploMinimizacao.txt");
+        File f = new File("/home/rafael/Documents/exemploRemocaoMovVazios1.txt");
         if (!f.exists()) {
             throw new Exception("Arquivo exemplo inexistente!");
         }
@@ -34,6 +34,7 @@ public class main {
             System.out.println("2 - Remover transições vazias");
             System.out.println("3 - Determinizar AF");
             System.out.println("4 - Minimizar AF");
+            System.out.println("5 - Executar AF");
             Integer comando = scan.nextInt();
             System.out.println("------------------------------------------------------------------------------------------");
 

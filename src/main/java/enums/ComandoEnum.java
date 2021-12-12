@@ -14,7 +14,8 @@ public enum ComandoEnum {
     EXIBIR(1, new ExibirService()),
     REMOVER_TRANSICOES_VAZIAS(2, new RemoverTransicoesVaziasService()),
     DETERMINIZAR(3, new DeterminizarService()),
-    MINIMIZAR(4, new MinimizarService());
+    MINIMIZAR(4, new MinimizarService()),
+    EXECUTAR(5, new ExecutarService());
 
     private Integer codigo;
     private FuncaoAF funcao;
