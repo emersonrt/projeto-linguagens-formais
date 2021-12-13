@@ -16,7 +16,7 @@ public class main {
         AutomatoDigestService service = new AutomatoDigestService();
         Scanner scan = new Scanner(System.in);
 
-        File f = new File("/home/rafael/Documents/exemploRemocaoMovVazios1.txt");
+        File f = new File("/home/rafael/Documents/exemploRemocaoMovVazios3.txt");
 //        File f = new File("/home/emerson/Documents/exemplos/exemploRemocaoMovVazios1.txt");
 //        File f = new File("/home/emerson/Documents/exemplos/exemploRemocaoMovVazios2.txt");
 //        File f = new File("/home/emerson/Documents/exemplos/exemploRemocaoMovVazios3.txt");

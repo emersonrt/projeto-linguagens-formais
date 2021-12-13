@@ -1,5 +1,6 @@
 package service.funcoes;
 
+import exeption.SucessoException;
 import java.util.ArrayList;
 import java.util.List;
 import model.AutomatoFinito;
@@ -13,63 +14,80 @@ public class ExecutarService implements FuncaoAF{
     
     String SUCESSO = "A sequência conseguiu ser executada pelo Automato Finito";
     String ERRO = "A sequência não conseguiu ser executada pelo Automato Finito";
+    Integer totalSucesso = 0;
 
     @Override
     public Boolean executar(AutomatoFinito af) {
     
-        List<String> sequenciaExecutal = gerarSequenciaExecutavel();
+        List<String> sequenciaExecutavel = gerarSequenciaExecutavel();
 
-        percorrerAutomato(af, sequenciaExecutal, af.getEstadoInicial(), 0);
+        percorrerAutomato(af, sequenciaExecutavel, af.getEstadoInicial());
+        
+        if (totalSucesso > 0){
+            System.out.println(SUCESSO);
+        }
+        else {
+            System.out.println(ERRO);
+        }
         
         return true;
     }
 
     private List<String> gerarSequenciaExecutavel() {
-        List<String> sequenciaExecutal = new ArrayList();
-        sequenciaExecutal.add("a");
-        sequenciaExecutal.add("b");
-//        sequenciaExecutal.add("");
-//        sequenciaExecutal.add("");
-//        sequenciaExecutal.add("");
-//        sequenciaExecutal.add("");
+        List<String> sequenciaExecutavel = new ArrayList();
+        sequenciaExecutavel.add("a");
+        sequenciaExecutavel.add("a");
+        sequenciaExecutavel.add("b");
+        sequenciaExecutavel.add("b");
+//        sequenciaExecutavel.add("");
+//        sequenciaExecutavel.add("");
         
-        return sequenciaExecutal;
+        return sequenciaExecutavel;
     }
 
-    private void percorrerAutomato(AutomatoFinito af, List<String> sequenciaExecutal, String estadoAtual, Integer auxiliar) {
+    private void percorrerAutomato(AutomatoFinito af, List<String> sequenciaExecutavel, String estadoAtual) {
         
-            for (Integer auxiliar2 = auxiliar; auxiliar2 < sequenciaExecutal.size(); auxiliar2++){
-            
-                verificarEstadoFinal(af, estadoAtual);
+        List<String> listaEstados = new ArrayList();
+        listaEstados.add(estadoAtual);
+        
+        verificarEstadoFinal(af, estadoAtual);
+        
+        for (Integer auxiliar = 0; auxiliar < sequenciaExecutavel.size(); auxiliar++){
 
-                seguirSequencia(af, sequenciaExecutal, estadoAtual, auxiliar2);
-            }
+            listaEstados = seguirSequencia(af, sequenciaExecutavel.get(auxiliar), listaEstados);
+        
+            listaEstados.forEach(estado ->{ 
+                verificarEstadoFinal(af, estado);
+            });
+        }
 
     }
 
-    private void seguirSequencia(AutomatoFinito af, List<String> sequenciaExecutal, String estadoAtual, Integer auxiliar){
+    private List<String> seguirSequencia(AutomatoFinito af, String sequenciaExecutavel, List<String> listaEstados){
+        List<String> novaListaEstados = new ArrayList();
+        for (Integer auxiliar = 0; auxiliar < af.getRegrasTransicao().size(); auxiliar++){
             
-        for (Integer auxiliar2 = 0; auxiliar2 < af.getRegrasTransicao().size(); auxiliar2++){
-            
-            RegraTransicaoAF regra = af.getRegrasTransicao().get(auxiliar2);
-            if (regra.getEstado() == estadoAtual){
-                if (regra.getLeitura() == sequenciaExecutal.get(auxiliar2)){
-                    System.out.println("Passou aqui");
+            for (Integer auxiliar2 = 0; auxiliar2 < listaEstados.size(); auxiliar2++){
+                
+                String estadoAtual = listaEstados.get(auxiliar2);
+                RegraTransicaoAF regra = af.getRegrasTransicao().get(auxiliar);
+                
+                if (regra.getEstado().equals(estadoAtual) && regra.getLeitura().equals(sequenciaExecutavel)){
                     regra.getVaiPara().forEach(proximaExecucao -> {
-                        percorrerAutomato(af, sequenciaExecutal, proximaExecucao, auxiliar);
+                        novaListaEstados.add(proximaExecucao);
                     });
-                    
                 }
             }
-        }    
-        System.out.println(ERRO);
+        }
+        return novaListaEstados;
     }
-
-    private void verificarEstadoFinal(AutomatoFinito af, String estadoAtual) {
+    private void verificarEstadoFinal(AutomatoFinito af, String estadoAtual){
         
-        af.getEstadosFinais().forEach(estadoFinal ->{
-            if (estadoFinal == estadoAtual)
-                System.out.println(SUCESSO);
-        });
+        for (Integer auxiliar = 0; auxiliar < af.getEstadosFinais().size(); auxiliar++){
+            String estadoFinal = af.getEstadosFinais().get(auxiliar);
+            if (estadoFinal.equals(estadoAtual)){
+                totalSucesso++;
+            }
+        }
     }
 }
