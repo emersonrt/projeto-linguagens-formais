@@ -20,7 +20,13 @@ public class ExecutarService implements FuncaoAF{
     public Boolean executar(AutomatoFinito af) {
     
         List<String> sequenciaExecutavel = gerarSequenciaExecutavel();
-
+        
+        System.out.println(af);
+        System.out.print("Sequência: ");
+        sequenciaExecutavel.forEach(sequencia -> {
+            System.out.print(sequencia + ", ");
+        });
+        System.out.print("\n\n");
         percorrerAutomato(af, sequenciaExecutavel, af.getEstadoInicial());
         
         if (totalSucesso > 0){
